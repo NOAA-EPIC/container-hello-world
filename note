@@ -1,0 +1,32 @@
+1. main branch:
+
+	shell-in-container.sh
+
+	. /opt/intel/oneapi/setvars.sh --force >& /dev/null
+	
+	mpicc hello-world.c -o hello-world.x
+
+[create_qp:2752]create qp: failed on ibv_cmd_create_qp with 22
+[create_qp:2752]create qp: failed on ibv_cmd_create_qp with 22
+[create_qp:2752]create qp: failed on ibv_cmd_create_qp with 95
+[create_qp:2752]create qp: failed on ibv_cmd_create_qp with 95
+[1764024741.119063] [derecho2:98147:0]        ib_iface.c:988  UCX  ERROR iface=0x5562902a5420: failed to create UD QP TX wr:256 sge:6 inl:64 resp:0 RX wr:4096 sge:1 resp:0: Operation not supported
+Abort(1614735) on node 0 (rank 0 in comm 0): Fatal error in PMPI_Init: Unknown error class, error stack:
+MPIR_Init_thread(192)........:
+MPID_Init(1665)..............:
+MPIDI_OFI_mpi_init_hook(1665):
+create_vni_context(2229).....: OFI endpoint open failed (ofi_init.c:2229:create_vni_context:Input/output error)
+[unset]: write_line error; fd=-1 buf=:cmd=abort exitcode=1614735
+:
+system msg for write_line failure : Bad file descriptor
+Abort(1614735) on node 0 (rank 0 in comm 0): Fatal error in PMPI_Init: Unknown error class, error stack:
+MPIR_Init_thread(192)........:
+MPID_Init(1665)..............:
+MPIDI_OFI_mpi_init_hook(1665):
+create_vni_context(2229).....: OFI endpoint open failed (ofi_init.c:2229:create_vni_context:Input/output error)
+[unset]: write_line error; fd=-1 buf=:cmd=abort exitcode=1614735
+:
+system msg for write_line failure : Bad file descriptor
+Segmentation fault (core dumped)
+
+
