@@ -30,3 +30,22 @@ system msg for write_line failure : Bad file descriptor
 Segmentation fault (core dumped)
 
 
+2. working on: feather/fix_issue_MPIDI_OFI_mpi_init_hook
+
+huangwei@derecho6:/gpfs/csfs1/work/huangwei/src/container-hello-world> qsub -I interactive.pbs 
+qsub: waiting for job 3734965.desched1 to start
+qsub: job 3734965.desched1 ready
+
+Directory: /gpfs/csfs1/work/huangwei/src/container-hello-world
+Mon Nov 24 04:42:47 PM MST 2025
+huangwei@dec2440:/gpfs/csfs1/work/huangwei/src/container-hello-world> qstat -n 3734965
+
+desched1:
+                                                            Req'd  Req'd   Elap 
+Job ID          Username Queue    Jobname    SessID NDS TSK Memory Time  S Time 
+--------------- -------- -------- ---------- ------ --- --- ------ ----- - -----
+3734965.desche* huangwei cpudev   interacti* 162635   1  64   10gb 02:30 R 00:04
+    dec2440/3*64
+huangwei@dec2440:/gpfs/csfs1/work/huangwei/src/container-hello-world> ssh dec2440
+pbs_attach: process 238120 attached to job: 3734965.desched1
+

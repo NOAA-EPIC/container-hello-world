@@ -1,0 +1,39 @@
+#!/bin/bash
+# hello.pbs - Submit with qsub hello.pbs
+#PBS -N container-test
+#PBS -A NRAL0032
+#PBS -q develop
+#PBS -l walltime=00:10:00
+#PBS -l select=1:mpiprocs=2:ncpus=2
+#PBS -o log.hello
+#PBS -e err.hello
+
+source /glade/u/apps/derecho/24.12/spack/opt/spack/lmod/8.7.37/gcc/12.4.0/nr3e/lmod/lmod/init/bash
+module --force purge
+module load ncarenv/24.12 intel-oneapi/2024.2.1 cray-mpich/8.1.29
+module load libfabric/1.15.2.0
+module load apptainer
+
+cd /gpfs/csfs1/work/huangwei/src/container-hello-world
+
+echo "=== Test 1: Simple echo ==="
+apptainer exec \
+    -B /glade -B /gpfs -B /lustre \
+    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
+    /bin/echo "Hello from container"
+
+echo "=== Test 2: MPI hostname ==="
+mpiexec -n 2 apptainer exec \
+    -B /glade -B /gpfs -B /lustre -B /opt/cray \
+    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
+    /bin/hostname
+
+echo "=== Test 3: Our MPI program ==="
+# First compile on the compute node using host MPI
+mpicc hello-world.c -o hello-world-host.x
+
+mpiexec -n 2 apptainer exec \
+    -B /glade -B /gpfs -B /lustre -B /opt/cray \
+    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
+    ./hello-world-host.x
+

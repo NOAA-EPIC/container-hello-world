@@ -1,0 +1,10 @@
+#! /bin/sh
+#PBS -N interactive
+#PBS -A NRAL0032
+#PBS -q develop
+#PBS -l walltime=02:30:00
+#PBS -l select=1:mpiprocs=64:ompthreads=1:ncpus=64
+#PBS -o log.interactive
+#PBS -e err.interactive
+#PBS -l place=vscatter
+
