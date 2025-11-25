@@ -16,24 +16,39 @@ module load apptainer
 
 cd /gpfs/csfs1/work/huangwei/src/container-hello-world
 
-echo "=== Test 1: Simple echo ==="
-apptainer exec \
-    -B /glade -B /gpfs -B /lustre \
-    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
-    /bin/echo "Hello from container"
+#echo "=== Test 1: Simple echo ==="
+#apptainer exec \
+#    -B /glade -B /gpfs -B /lustre \
+#    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
+#    /bin/echo "Hello from container"
 
-echo "=== Test 2: MPI hostname ==="
+#echo "=== Test 2: MPI hostname ==="
+#mpiexec -n 2 apptainer exec \
+#    -B /glade -B /gpfs -B /lustre -B /opt/cray \
+#    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
+#    /bin/hostname
+
+#echo "=== Test 3: hello-world program ==="
+#mpiexec -n 2 apptainer exec \
+#    -B /glade -B /gpfs -B /lustre -B /opt/cray \
+#    -B /opt/cray/pe \
+#    -B /opt/cray/libfabric \
+#    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
+#    ./hello-world.x
+
+echo "=== Test 4: run-hello-world.sh ==="
 mpiexec -n 2 apptainer exec \
     -B /glade -B /gpfs -B /lustre -B /opt/cray \
+    -B /opt/cray/pe \
+    -B /opt/cray/libfabric \
     /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
-    /bin/hostname
+    ./run-hello-world.sh
 
-echo "=== Test 3: Our MPI program ==="
-# First compile on the compute node using host MPI
-mpicc hello-world.c -o hello-world-host.x
-
-mpiexec -n 2 apptainer exec \
-    -B /glade -B /gpfs -B /lustre -B /opt/cray \
-    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
-    ./hello-world-host.x
+#echo "=== Test 5: run-hello-world.sh ==="
+#apptainer exec \
+#    -B /glade -B /gpfs -B /lustre -B /opt/cray \
+#    -B /opt/cray/pe \
+#    -B /opt/cray/libfabric \
+#    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
+#    ./mpirun-hello-world.sh
 
