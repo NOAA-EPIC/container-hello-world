@@ -4,7 +4,7 @@
 #PBS -A NRAL0032
 #PBS -q develop
 #PBS -l walltime=00:10:00
-#PBS -l select=1:mpiprocs=2:ncpus=2
+#PBS -l select=1:mpiprocs=4:ncpus=4
 #PBS -o log.hello
 #PBS -e err.hello
 
@@ -14,41 +14,14 @@ module load ncarenv/24.12 intel-oneapi/2024.2.1 cray-mpich/8.1.29
 module load libfabric/1.15.2.0
 module load apptainer
 
-cd /gpfs/csfs1/work/huangwei/src/container-hello-world
+#export PATH=/opt/cray/pe/pals/1.2.14/bin:$PATH
 
-#echo "=== Test 1: Simple echo ==="
-#apptainer exec \
-#    -B /glade -B /gpfs -B /lustre \
-#    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
-#    /bin/echo "Hello from container"
-
-#echo "=== Test 2: MPI hostname ==="
-#mpiexec -n 2 apptainer exec \
-#    -B /glade -B /gpfs -B /lustre -B /opt/cray \
-#    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
-#    /bin/hostname
-
-#echo "=== Test 3: hello-world program ==="
-#mpiexec -n 2 apptainer exec \
-#    -B /glade -B /gpfs -B /lustre -B /opt/cray \
-#    -B /opt/cray/pe \
-#    -B /opt/cray/libfabric \
-#    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
-#    ./hello-world.x
-
-echo "=== Test 4: run-hello-world.sh ==="
-mpiexec -n 2 apptainer exec \
+echo "=== run-hello-world.sh ==="
+mpiexec -n 4 apptainer exec \
+    --cleanenv \
     -B /glade -B /gpfs -B /lustre -B /opt/cray \
     -B /opt/cray/pe \
     -B /opt/cray/libfabric \
     /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
-    ./run-hello-world.sh
-
-#echo "=== Test 5: run-hello-world.sh ==="
-#apptainer exec \
-#    -B /glade -B /gpfs -B /lustre -B /opt/cray \
-#    -B /opt/cray/pe \
-#    -B /opt/cray/libfabric \
-#    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
-#    ./mpirun-hello-world.sh
+    /gpfs/csfs1/work/huangwei/src/container-hello-world/run-hello-world.sh
 
