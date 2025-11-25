@@ -16,5 +16,5 @@ bindings="-B /glade -B /gpfs -B /lustre -B /opt/cray"
 export FI_PROVIDER_PATH=/opt/cray/libfabric/1.15.2.0
 export I_MPI_OFI_LIBRARY=/opt/cray/libfabric/1.15.2.0/lib64/libfabric.so.1
 
-apptainer shell ${bindings} "${img}"
+apptainer shell -e ${bindings} "${img}"
 
