@@ -2,14 +2,13 @@
 
 set -x
 
-module load apptainer
-
 sif=ubuntu22.04-intel-ufs-env-v1.9.2.img
 img=/glade/u/home/huangwei/containers/${sif}
-bindings="-B /glade -B /gpfs -B /lustre"
-workdir=/gpfs/csfs1/work/huangwei/src/hello-world
+bindings="-B /glade -B /gpfs -B /lustre -B /opt/cray "
+workdir=/gpfs/csfs1/work/huangwei/src/container-hello-world
 
 apptainer exec \
+	--cleanenv \
  	${bindings} ${img} \
 	${workdir}/run-hello-world.sh
 

@@ -1,0 +1,19 @@
+#!/bin/bash
+# hello.pbs - Submit with qsub hello.pbs
+#PBS -N container-test
+#PBS -A NRAL0032
+#PBS -q develop
+#PBS -l walltime=00:10:00
+#PBS -l select=1:mpiprocs=4:ncpus=4
+#PBS -o log.container
+#PBS -e err.container
+
+source /glade/u/apps/derecho/24.12/spack/opt/spack/lmod/8.7.37/gcc/12.4.0/nr3e/lmod/lmod/init/bash
+module --force purge
+module load ncarenv/24.12 intel-oneapi/2024.2.1 cray-mpich/8.1.29
+module load libfabric/1.15.2.0
+module load apptainer/1.3.4
+
+echo "=== run-hello-world ==="
+mpiexec -n 4 /gpfs/csfs1/work/huangwei/src/container-hello-world/run-hello-world.wrapper
+

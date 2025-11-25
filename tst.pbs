@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -N container-test
+#PBS -A NRAL0032
+#PBS -q develop
+#PBS -l walltime=00:10:00
+#PBS -l select=1:mpiprocs=4:ncpus=4
+#PBS -o log.hello
+#PBS -e err.hello
+
+# Load modules
+source /glade/u/apps/derecho/24.12/spack/opt/spack/lmod/8.7.37/gcc/12.4.0/nr3e/lmod/lmod/init/bash
+module --force purge
+module load ncarenv/24.12 intel-oneapi/2024.2.1 cray-mpich/8.1.29
+module load libfabric/1.15.2.0
+module load apptainer
+
+ export FI_PROVIDER_PATH=/opt/cray/libfabric/1.15.2.0
+ export I_MPI_OFI_LIBRARY=/opt/cray/libfabric/1.15.2.0/lib64/libfabric.so.1
+
+export UCX_TLS=ud,sm,self
+
+#export FI_PROVIDER=sockets
+#export FI_PROVIDER=tcp
+ export FI_PROVIDER=psm
+ export I_MPI_OFI_PROVIDER=psm
+
+ export LD_LIBRARY_PATH=$CRAY_LD_LIBRARY_PATH:$LD_LIBRARY_PATH
+ export LIBRARY_PATH=$CRAY_LIBRARY_PATH:$LIBRARY_PATH
+
+cd /gpfs/csfs1/work/huangwei/src/container-hello-world
+
+mpiexec -n 4 apptainer exec \
+    -B /glade -B /gpfs -B /lustre -B /opt/cray \
+    -B /opt/cray/pe \
+    -B /opt/cray/libfabric \
+    --env LD_LIBRARY_PATH=/opt/cray/pe/lib64:/opt/cray/libfabric/1.15.2.0/lib64 \
+    --env I_MPI_PMI=pmi2 \
+    --env I_MPI_PMI_IMPL=pmi_cray \
+    --env I_MPI_OFI_FINI_SUPPRESS=1 \
+    --env FI_PROVIDER_PATH=/opt/cray/libfabric/1.15.2.0 \
+    --env I_MPI_OFI_LIBRARY=/opt/cray/libfabric/1.15.2.0/lib64/libfabric.so.1 \
+    /glade/u/home/huangwei/containers/ubuntu22.04-intel-ufs-env-v1.9.2.img \
+    /gpfs/csfs1/work/huangwei/src/container-hello-world/run-hello-world.sh
+

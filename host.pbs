@@ -1,0 +1,20 @@
+#!/bin/bash
+# hello.pbs - Submit with qsub hello.pbs
+#PBS -N host-test
+#PBS -A NRAL0032
+#PBS -q develop
+#PBS -l walltime=00:10:00
+#PBS -l select=1:mpiprocs=16:ncpus=16
+#PBS -o log.host
+#PBS -e err.host
+
+source /glade/u/apps/derecho/24.12/spack/opt/spack/lmod/8.7.37/gcc/12.4.0/nr3e/lmod/lmod/init/bash
+module --force purge
+module load ncarenv/24.12 intel-oneapi/2024.2.1 cray-mpich/8.1.29
+
+cd /gpfs/csfs1/work/huangwei/src/container-hello-world
+
+mpicc hello-world.c -o host-hello-world.x
+
+mpiexec -n 16 ./host-hello-world.x
+
