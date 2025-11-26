@@ -1,7 +1,9 @@
 #!/bin/bash
 
-#. /opt/intel/oneapi/setvars.sh --force >& /dev/null
+source /usr/lmod/lmod/init/bash
+module use "/glade/work/huangwei/src/container/global-workflow-cloud/sorc/ufs_model.fd/modulefiles"
+module load ufs_container.intel
 
- cd /gpfs/csfs1/work/huangwei/src/container-hello-world
+export LD_LIBRARY_PATH=${CRAY_MPICH_DIR}/lib-abi-mpich:/opt/cray/pe/lib64:$LD_LIBRARY_PATH:/host/usr/lib64
 
- ./hello-world.x
+/gpfs/csfs1/work/huangwei/src/container-hello-world/hello-world.x "$@"

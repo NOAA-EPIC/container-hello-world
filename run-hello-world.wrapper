@@ -1,14 +1,7 @@
 #!/bin/bash
 
-set -x
-
 sif=ubuntu22.04-intel-ufs-env-v1.9.2.img
 img=/glade/u/home/huangwei/containers/${sif}
-bindings="-B /glade -B /gpfs -B /lustre -B /opt/cray "
-workdir=/gpfs/csfs1/work/huangwei/src/container-hello-world
+bindings="-B /glade -B /gpfs -B /opt/cray -B /run -B /usr/lib64:/host/usr/lib64"
 
-apptainer exec \
-	--cleanenv \
- 	${bindings} ${img} \
-	${workdir}/run-hello-world.sh
-
+apptainer exec ${bindings} ${img} "$@"
