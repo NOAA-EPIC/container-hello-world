@@ -4,7 +4,7 @@
 #PBS -A NRAL0032
 #PBS -q develop
 #PBS -l walltime=00:10:00
-#PBS -l select=1:mpiprocs=4:ncpus=4
+#PBS -l select=2:mpiprocs=16:ncpus=16
 #PBS -o log.hello
 #PBS -e err.hello
 
@@ -17,7 +17,7 @@ module load apptainer
 #export PATH=/opt/cray/pe/pals/1.2.14/bin:$PATH
 
 echo "=== run-hello-world.sh ==="
-mpiexec -n 4 apptainer exec \
+mpiexec -n 32 apptainer exec \
     --cleanenv \
     -B /glade -B /gpfs -B /lustre -B /opt/cray \
     -B /opt/cray/pe \

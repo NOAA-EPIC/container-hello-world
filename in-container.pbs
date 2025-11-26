@@ -4,8 +4,8 @@
 #PBS -q develop
 #PBS -l walltime=00:10:00
 #PBS -l select=1:mpiprocs=4:ncpus=4
-#PBS -o log.hello
-#PBS -e err.hello
+#PBS -o log.in-container
+#PBS -e err.in-container
 
 # Load modules
 source /glade/u/apps/derecho/24.12/spack/opt/spack/lmod/8.7.37/gcc/12.4.0/nr3e/lmod/lmod/init/bash
