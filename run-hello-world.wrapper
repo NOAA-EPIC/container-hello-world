@@ -2,6 +2,6 @@
 
 sif=ubuntu22.04-intel-ufs-env-v1.9.2.img
 img=/glade/u/home/huangwei/containers/${sif}
-bindings="-B /glade -B /gpfs -B /opt/cray -B /run -B /usr/lib64:/host/usr/lib64"
+bindings="-B /glade -B /gpfs -B /run -B /opt/cray -B /usr/lib64:/host/usr/lib64"
 
 apptainer exec ${bindings} ${img} "$@"

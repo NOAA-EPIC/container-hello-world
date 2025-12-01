@@ -3,7 +3,7 @@
 #PBS -A NRAL0032
 #PBS -q develop
 #PBS -l walltime=00:10:00
-#PBS -l select=1:mpiprocs=16:ncpus=16
+#PBS -l select=2:mpiprocs=16:ncpus=16
 #PBS -o log.container
 #PBS -e err.container
 
@@ -12,7 +12,7 @@ module --force purge
 module load ncarenv/24.12 intel/2024.2.1 cray-mpich/8.1.29 apptainer/1.3.4
 
 echo "=== run-hello-world ==="
-mpiexec -n 16 -ppn 16 --cpu-bind depth --depth 1 \
+mpiexec -n 32 -ppn 16 --cpu-bind depth --depth 1 \
 	/gpfs/csfs1/work/huangwei/src/container-hello-world/run-hello-world.wrapper \
 	/gpfs/csfs1/work/huangwei/src/container-hello-world/run-hello-world.sh
 
