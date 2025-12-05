@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -N test
+#PBS -A NRAL0032
+#PBS -q develop
+#PBS -l walltime=00:05:00
+#PBS -l select=1:mpiprocs=4:ompthreads=1:ncpus=4
+#PBS -j oe
+
+module --force purge
+module load ncarenv/24.12 intel/2024.2.1 cray-mpich/8.1.29 apptainer/1.3.4
+
+mpiexec ./start-container.sh ./container-env.sh hello/hw_mpi_c
+
