@@ -6,6 +6,7 @@ module use /scratch4/NAGAPE/epic/Wei.Huang/src/gsi-container/global-workflow-clo
 module load gfsutils_container.intel
 module load python
 
+cd /scratch4/NAGAPE/epic/Wei.Huang/src/container-hello-world/mpmd
 python --version
-python /scratch4/NAGAPE/epic/Wei.Huang/src/container-hello-world/run-hello-world.py
+python ./run_mpmd.py
 

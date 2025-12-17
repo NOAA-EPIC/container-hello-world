@@ -1,0 +1,11 @@
+# Prerequisites
+*.x
+log.*
+err.*
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
