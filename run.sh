@@ -1,5 +1,5 @@
 #!/bin/bash
 
-rm -f err.in-container log.in-container
-sbatch in-container.slurm
+rm -f err.aws-in-container log.aws-in-container
+sbatch aws-in-container.slurm
 

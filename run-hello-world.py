@@ -90,7 +90,7 @@ def runHelloWorld(workdir, helloworldcmd):
         print(f'nodes: {nodes}')
 
     # run the executable
-    hw_job = subprocess.Popen('mpirun -n 192 ' + workdir + helloworldcmd, shell=True, cwd=workdir)
+    hw_job = subprocess.Popen('mpirun -n 24 ' + workdir + helloworldcmd, shell=True, cwd=workdir)
 
     sys.stdout.flush()
     # check on analysis steps
@@ -104,7 +104,7 @@ def runHelloWorld(workdir, helloworldcmd):
 
 # run the function if this script is called from the command line
 if __name__ == '__main__':
-    workdir = '/scratch4/NAGAPE/epic/Wei.Huang/src/container-hello-world/'
+    workdir = '/contrib/Wei.Huang/src/container-hello-world/'
     helloworldcmd = 'hello-world.x'
 
     runHelloWorld(workdir, helloworldcmd)
