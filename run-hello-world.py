@@ -90,7 +90,7 @@ def runHelloWorld(workdir, helloworldcmd):
         print(f'nodes: {nodes}')
 
     # run the executable
-    hw_job = subprocess.Popen('mpirun -n 192 ' + workdir + helloworldcmd, shell=True, cwd=workdir)
+    hw_job = subprocess.Popen('/opt/intel/oneapi/mpi/2021.13/bin/mpirun -n 192 ' + workdir + helloworldcmd, shell=True, cwd=workdir)
 
     sys.stdout.flush()
     # check on analysis steps
